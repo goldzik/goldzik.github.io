@@ -1,0 +1,570 @@
+<!DOCTYPE HTML>
+<html lang="pl">
+<head>
+	<meta charset="utf-8">
+	<title>Angry Borys</title>
+	<meta name="description" content="Opis strony" />
+	<meta name="keywords" content="slowa kluczowe, po przecinku" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<link rel="stylesheet" href="style.css" type="text/css" />
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+	<link href="img/icon.png" rel="icon" type="image/png" />
+
+</head>
+
+<body>
+
+<div id="container">
+
+	<div id="title">
+
+		<img id="changeBirds" src="img/logo.png" onclick="changeBirds()">
+
+		<div id="statusBox">
+			<div id="status">
+			</div>
+
+			<img id="statusImg" src="img/red.png">
+		</div>
+
+	</div>
+
+	<div id="gameBox">
+
+		<div class="tileStyle" id="tile1" onclick="fill1()"></div>
+		<div class="tileStyle" id="tile2" onclick="fill2()"></div>
+		<div class="tileStyle" id="tile3" onclick="fill3()"></div>
+		<div class="tileStyle" id="tile4" onclick="fill4()"></div>
+		<div class="tileStyle" id="tile5" onclick="fill5()"></div>
+		<div class="tileStyle" id="tile6" onclick="fill6()"></div>
+		<div class="tileStyle" id="tile7" onclick="fill7()"></div>
+		<div class="tileStyle" id="tile8" onclick="fill8()"></div>
+		<div class="tileStyle" id="tile9" onclick="fill9()"></div>
+
+	</div>
+
+	<div id="resetBox">
+		<input id="res" type="button" value="Jeszcze raz!" onclick="restartGame()">
+	</div>
+
+</div>
+
+
+<script>
+
+var backgroundMusic = new Audio("sounds/AngryBirds.mp3");
+backgroundMusic.play();
+
+
+var pik = new Audio("sounds/pik.wav");
+
+var win = new Audio("sounds/win.wav");
+
+var playerTurnX = 1; // 1 to ruch X , 2 to ruch O
+
+document.getElementById("status").innerHTML = "Tura";
+document.getElementById("statusImg").src = "img/red-mini.png";
+
+document.getElementById("res").style.visibility = "hidden";
+
+
+function restartGame()
+{
+	backgroundMusic.currentTime = 0;
+	backgroundMusic.play();
+	playerTurnX = 1; // 1 to ruch X , 2 to ruch O
+
+	document.getElementById("status").innerHTML = "Tura";
+	document.getElementById("statusImg").src = "img/red-mini.png";
+
+	document.getElementById("status").style.color = "black";
+
+	document.getElementById("tile1").innerHTML = "";
+	document.getElementById("tile2").innerHTML = "";
+	document.getElementById("tile3").innerHTML = "";
+	document.getElementById("tile4").innerHTML = "";
+	document.getElementById("tile5").innerHTML = "";
+	document.getElementById("tile6").innerHTML = "";
+	document.getElementById("tile7").innerHTML = "";
+	document.getElementById("tile8").innerHTML = "";
+	document.getElementById("tile9").innerHTML = "";
+
+	document.getElementById("tile1").style.backgroundImage = "none";
+	document.getElementById("tile2").style.backgroundImage = "none";
+	document.getElementById("tile3").style.backgroundImage = "none";
+	document.getElementById("tile4").style.backgroundImage = "none";
+	document.getElementById("tile5").style.backgroundImage = "none";
+	document.getElementById("tile6").style.backgroundImage = "none";
+	document.getElementById("tile7").style.backgroundImage = "none";
+	document.getElementById("tile8").style.backgroundImage = "none";
+	document.getElementById("tile9").style.backgroundImage = "none";
+
+	document.getElementById("res").style.visibility = "hidden";
+}
+
+function fillRemainingTiles()
+{
+	if (document.getElementById("tile1").innerHTML == "")
+	{
+		document.getElementById("tile1").innerHTML = "  ";
+	}
+
+	if (document.getElementById("tile2").innerHTML == "")
+	{
+		document.getElementById("tile2").innerHTML = "  ";
+	}
+
+	if (document.getElementById("tile3").innerHTML == "")
+	{
+		document.getElementById("tile3").innerHTML = "  ";
+	}
+	
+	if (document.getElementById("tile4").innerHTML == "")
+	{
+		document.getElementById("tile4").innerHTML = "  ";
+	}
+	
+	if (document.getElementById("tile5").innerHTML == "")
+	{
+		document.getElementById("tile5").innerHTML = "  ";
+	}
+	
+	if (document.getElementById("tile6").innerHTML == "")
+	{
+		document.getElementById("tile6").innerHTML = "  ";
+	}
+	
+	if (document.getElementById("tile7").innerHTML == "")
+	{
+		document.getElementById("tile7").innerHTML = "  ";
+	}
+	
+	if (document.getElementById("tile8").innerHTML == "")
+	{
+		document.getElementById("tile8").innerHTML = "  ";
+	}
+	
+	if (document.getElementById("tile9").innerHTML == "")
+	{
+		document.getElementById("tile9").innerHTML = "  ";
+	}
+}
+
+
+function updateStatus()
+{
+	if (playerTurnX == 1)
+	{
+		document.getElementById("status").innerHTML = "Tura";
+		document.getElementById("statusImg").src = "img/red-mini.png";
+	}
+	else
+	{
+		document.getElementById("status").innerHTML = "Tura";
+		document.getElementById("statusImg").src = "img/chuck-mini.png";
+	}
+}
+
+
+function checkIfWin()
+{
+	if(
+		 document.getElementById("tile1").innerHTML == "X"  &&
+		 document.getElementById("tile2").innerHTML == "X" 	&& 
+		 document.getElementById("tile3").innerHTML == "X"  ||
+
+		 document.getElementById("tile4").innerHTML == "X"  &&
+		 document.getElementById("tile5").innerHTML == "X" 	&& 
+		 document.getElementById("tile6").innerHTML == "X"  ||
+
+		 document.getElementById("tile7").innerHTML == "X"  &&
+		 document.getElementById("tile8").innerHTML == "X" 	&& 
+		 document.getElementById("tile9").innerHTML == "X"  ||
+		
+		 document.getElementById("tile1").innerHTML == "X"  &&
+		 document.getElementById("tile4").innerHTML == "X" 	&& 
+		 document.getElementById("tile7").innerHTML == "X"  ||
+
+		 document.getElementById("tile2").innerHTML == "X"  &&
+		 document.getElementById("tile5").innerHTML == "X" 	&& 
+		 document.getElementById("tile8").innerHTML == "X"  ||
+
+		 document.getElementById("tile3").innerHTML == "X"  &&
+		 document.getElementById("tile6").innerHTML == "X" 	&& 
+		 document.getElementById("tile9").innerHTML == "X"  ||
+		
+		 document.getElementById("tile1").innerHTML == "X"  &&
+		 document.getElementById("tile5").innerHTML == "X" 	&& 
+		 document.getElementById("tile9").innerHTML == "X"  ||
+
+		 document.getElementById("tile3").innerHTML == "X"  &&
+		 document.getElementById("tile5").innerHTML == "X" 	&& 
+		 document.getElementById("tile7").innerHTML == "X"  
+		)
+		 
+	{
+		backgroundMusic.pause();
+		win.play();
+
+		document.getElementById("status").innerHTML = "Wygrywa";
+		document.getElementById("status").style.color = "green";
+		document.getElementById("statusImg").src = "img/red-mini.png";
+
+		fillRemainingTiles();
+		document.getElementById("res").style.visibility = "visible";
+	}
+	else if(
+
+		 document.getElementById("tile1").innerHTML == "O"  &&
+		 document.getElementById("tile2").innerHTML == "O" 	&& 
+		 document.getElementById("tile3").innerHTML == "O"  ||
+
+		 document.getElementById("tile4").innerHTML == "O"  &&
+		 document.getElementById("tile5").innerHTML == "O" 	&& 
+		 document.getElementById("tile6").innerHTML == "O"  ||
+
+		 document.getElementById("tile7").innerHTML == "O"  &&
+		 document.getElementById("tile8").innerHTML == "O" 	&& 
+		 document.getElementById("tile9").innerHTML == "O"  ||
+		
+		 document.getElementById("tile1").innerHTML == "O"  &&
+		 document.getElementById("tile4").innerHTML == "O" 	&& 
+		 document.getElementById("tile7").innerHTML == "O"  ||
+
+		 document.getElementById("tile2").innerHTML == "O"  &&
+		 document.getElementById("tile5").innerHTML == "O" 	&& 
+		 document.getElementById("tile8").innerHTML == "O"  ||
+
+		 document.getElementById("tile3").innerHTML == "O"  &&
+		 document.getElementById("tile6").innerHTML == "O" 	&& 
+		 document.getElementById("tile9").innerHTML == "O"  ||
+		
+		 document.getElementById("tile1").innerHTML == "O"  &&
+		 document.getElementById("tile5").innerHTML == "O" 	&& 
+		 document.getElementById("tile9").innerHTML == "O"  ||
+
+		 document.getElementById("tile3").innerHTML == "O"  &&
+		 document.getElementById("tile5").innerHTML == "O" 	&& 
+		 document.getElementById("tile7").innerHTML == "O"  
+		)
+	{
+		backgroundMusic.pause();
+		win.play();
+
+		document.getElementById("status").innerHTML = "Wygrywa";
+		document.getElementById("status").style.color = "green";
+		document.getElementById("statusImg").src = "img/chuck-mini.png";
+
+		fillRemainingTiles();
+		document.getElementById("res").style.visibility = "visible";
+	}
+	else if(
+
+		document.getElementById("tile1").innerHTML !== "" &&
+		document.getElementById("tile2").innerHTML !== "" &&
+		document.getElementById("tile3").innerHTML !== "" &&
+		document.getElementById("tile4").innerHTML !== "" &&
+		document.getElementById("tile5").innerHTML !== "" &&
+		document.getElementById("tile6").innerHTML !== "" &&
+		document.getElementById("tile7").innerHTML !== "" &&
+		document.getElementById("tile8").innerHTML !== "" &&
+		document.getElementById("tile9").innerHTML !== ""
+
+		)
+	{
+		backgroundMusic.pause();
+		pik.play();
+
+		document.getElementById("status").innerHTML = "Remis";
+		document.getElementById("status").style.color = "orange";
+		document.getElementById("statusImg").src = "img/bomb-mini.png";
+		document.getElementById("res").style.visibility = "visible";
+	}
+
+}
+
+
+function fill1()
+{
+	if (document.getElementById("tile1").innerHTML == "")
+	{
+		if (playerTurnX == 1)
+		{
+			document.getElementById("tile1").innerHTML = "X";
+			document.getElementById("tile1").style.backgroundImage =
+			"url('img/red.png')";
+			playerTurnX = playerTurnX + 1;
+			pik.play();
+		}
+		else
+		{
+			document.getElementById("tile1").innerHTML = "O";
+			document.getElementById("tile1").style.backgroundImage =
+			"url('img/chuck.png')";
+			playerTurnX = playerTurnX - 1;
+			pik.play();
+		}
+	}
+	else
+	{
+		alert("To pole jest juz zajete!");
+	}
+
+	updateStatus();
+	checkIfWin();
+}
+
+function fill2()
+{
+	if (document.getElementById("tile2").innerHTML == "")
+	{
+		if (playerTurnX == 1)
+		{
+			document.getElementById("tile2").innerHTML = "X";
+			document.getElementById("tile2").style.backgroundImage =
+			"url('img/red.png')";
+			playerTurnX = playerTurnX + 1;
+			pik.play();
+		}
+		else
+		{
+			document.getElementById("tile2").innerHTML = "O";
+			document.getElementById("tile2").style.backgroundImage =
+			"url('img/chuck.png')";
+			playerTurnX = playerTurnX - 1;
+			pik.play();
+		}
+	}
+	else
+	{
+		alert("To pole jest juz zajete!");
+	}
+
+	updateStatus();
+	checkIfWin();
+}
+
+function fill3()
+{
+	if (document.getElementById("tile3").innerHTML == "")
+	{
+		if (playerTurnX == 1)
+		{
+			document.getElementById("tile3").innerHTML = "X";
+			document.getElementById("tile3").style.backgroundImage =
+			"url('img/red.png')";
+			playerTurnX = playerTurnX + 1;
+			pik.play();
+		}
+		else
+		{
+			document.getElementById("tile3").innerHTML = "O";
+			document.getElementById("tile3").style.backgroundImage =
+			"url('img/chuck.png')";
+			playerTurnX = playerTurnX - 1;
+			pik.play();
+		}
+	}
+	else
+	{
+		alert("To pole jest juz zajete!");
+	}
+
+	updateStatus();
+	checkIfWin();
+}
+
+function fill4()
+{
+	if (document.getElementById("tile4").innerHTML == "")
+	{
+		if (playerTurnX == 1)
+		{
+			document.getElementById("tile4").innerHTML = "X";
+			document.getElementById("tile4").style.backgroundImage =
+			"url('img/red.png')";
+			playerTurnX = playerTurnX + 1;
+			pik.play();
+		}
+		else
+		{
+			document.getElementById("tile4").innerHTML = "O";
+			document.getElementById("tile4").style.backgroundImage =
+			"url('img/chuck.png')";
+			playerTurnX = playerTurnX - 1;
+			pik.play();
+		}
+	}
+	else
+	{
+		alert("To pole jest juz zajete!");
+	}
+
+	updateStatus();
+	checkIfWin();
+}
+
+function fill5()
+{
+	if (document.getElementById("tile5").innerHTML == "")
+	{
+		if (playerTurnX == 1)
+		{
+			document.getElementById("tile5").innerHTML = "X";
+			document.getElementById("tile5").style.backgroundImage =
+			"url('img/red.png')";
+			playerTurnX = playerTurnX + 1;
+			pik.play();
+		}
+		else
+		{
+			document.getElementById("tile5").innerHTML = "O";
+			document.getElementById("tile5").style.backgroundImage =
+			"url('img/chuck.png')";
+			playerTurnX = playerTurnX - 1;
+			pik.play();
+		}
+	}
+	else
+	{
+		alert("To pole jest juz zajete!");
+	}
+
+	updateStatus();
+	checkIfWin();
+}
+
+function fill6()
+{
+	if (document.getElementById("tile6").innerHTML == "")
+	{
+		if (playerTurnX == 1)
+		{
+			document.getElementById("tile6").innerHTML = "X";
+			document.getElementById("tile6").style.backgroundImage =
+			"url('img/red.png')";
+			playerTurnX = playerTurnX + 1;
+			pik.play();
+		}
+		else
+		{
+			document.getElementById("tile6").innerHTML = "O";
+			document.getElementById("tile6").style.backgroundImage =
+			"url('img/chuck.png')";
+			playerTurnX = playerTurnX - 1;
+			pik.play();
+		}
+	}
+	else
+	{
+		alert("To pole jest juz zajete!");
+	}
+
+	updateStatus();
+	checkIfWin();
+}
+
+function fill7()
+{
+	if (document.getElementById("tile7").innerHTML == "")
+	{
+		if (playerTurnX == 1)
+		{
+			document.getElementById("tile7").innerHTML = "X";
+			document.getElementById("tile7").style.backgroundImage =
+			"url('img/red.png')";
+			playerTurnX = playerTurnX + 1;
+			pik.play();
+		}
+		else
+		{
+			document.getElementById("tile7").innerHTML = "O";
+			document.getElementById("tile7").style.backgroundImage =
+			"url('img/chuck.png')";
+			playerTurnX = playerTurnX - 1;
+			pik.play();
+		}
+	}
+	else
+	{
+		alert("To pole jest juz zajete!");
+	}
+
+	updateStatus();
+	checkIfWin();
+}
+
+function fill8()
+{
+	if (document.getElementById("tile8").innerHTML == "")
+	{
+		if (playerTurnX == 1)
+		{
+			document.getElementById("tile8").innerHTML = "X";
+			document.getElementById("tile8").style.backgroundImage =
+			"url('img/red.png')";
+			playerTurnX = playerTurnX + 1;
+			pik.play();
+		}
+		else
+		{
+			document.getElementById("tile8").innerHTML = "O";
+			document.getElementById("tile8").style.backgroundImage =
+			"url('img/chuck.png')";
+			playerTurnX = playerTurnX - 1;
+			pik.play();
+		}
+	}
+	else
+	{
+		alert("To pole jest juz zajete!");
+	}
+
+	updateStatus();
+	checkIfWin();
+}
+
+function fill9()
+{
+	if (document.getElementById("tile9").innerHTML == "")
+	{
+		if (playerTurnX == 1)
+		{
+			document.getElementById("tile9").innerHTML = "X";
+			document.getElementById("tile9").style.backgroundImage =
+			"url('img/red.png')";
+			playerTurnX = playerTurnX + 1;
+			pik.play();
+		}
+		else
+		{
+			document.getElementById("tile9").innerHTML = "O";
+			document.getElementById("tile9").style.backgroundImage =
+			"url('img/chuck.png')";
+			playerTurnX = playerTurnX - 1;
+			pik.play();
+		}
+	}
+	else
+	{
+		alert("To pole jest juz zajete!");
+	}
+
+	updateStatus();
+	checkIfWin();
+}
+
+function changeBirds()
+{
+	
+}
+
+
+
+
+
+
+</script>
+
+</body>
+</html>
